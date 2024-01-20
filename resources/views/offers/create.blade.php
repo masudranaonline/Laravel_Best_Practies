@@ -62,12 +62,13 @@
                       </div>
                   </div>
 
-                  <div>
-                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Image</label>
-                    <div class="mt-2">
-                      <input id="image" name="image" type="file" value="{{ old('image')}}" autocomplete="title" class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                    <div class="mt-2 flex flex-col image-preview">
+                      <label for="email" class="leading-loose">Image</label>
+                      <div class="flex items-center justify-center p-4">
+                        <img class=" object-cover rounded-3xl" src="{{ asset(\App\Models\Offer::PLACEHOLDER_IMAGE_PATH) }}" alt=""> 
+                      </div>
+                      <input id="image" name="image" type="file" value="{{ old('image')}}" autocomplete="title" class="image-upload-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="">
                     </div>
-                  </div>
 
                   <div>
                     <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Description<span class=" text-red-600 font-bold">*</span></label>
@@ -90,6 +91,7 @@
 @endsection
 
 @section('script')
+    @include('layouts.scripts.image-uploaded-preview-script')
 
     <script>
          $(document).ready(function() {

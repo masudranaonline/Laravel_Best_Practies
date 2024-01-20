@@ -36,14 +36,18 @@ class OfferController extends Controller
     {
         // return $request;
         $this->authorize('create', Offer::class);
+        $offerService->store(
+            $request->validated(),
+            $request->hasFile('image') ? $request->file('image') : null
+        );
 
         
-        try {
-            $offerService->store($request->validated());
-            // throw new \Exception('Offer not Created');
-        } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => 'Something went wrong!']);
-        }
+        // try {
+        //     $offerService->store($request->validated());
+        //     // throw new \Exception('Offer not Created');
+        // } catch (\Throwable $th) {
+        //     return redirect()->back()->with(['error' => 'Something went wrong!']);
+        // }
         
         return redirect()->back()->with(['success' => 'Offer Created Successfully']);
 
