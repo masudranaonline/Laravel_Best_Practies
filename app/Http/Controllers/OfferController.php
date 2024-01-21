@@ -24,6 +24,7 @@ class OfferController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Offer::class);
         $locations = Location::orderBY('title')->get();
         $categories = Category::orderBY('title')->get();
         return view('offers.create', compact('locations', 'categories'));
@@ -40,14 +41,6 @@ class OfferController extends Controller
             $request->validated(),
             $request->hasFile('image') ? $request->file('image') : null
         );
-
-        
-        // try {
-        //     $offerService->store($request->validated());
-        //     // throw new \Exception('Offer not Created');
-        // } catch (\Throwable $th) {
-        //     return redirect()->back()->with(['error' => 'Something went wrong!']);
-        // }
         
         return redirect()->back()->with(['success' => 'Offer Created Successfully']);
 
@@ -58,6 +51,9 @@ class OfferController extends Controller
      */
     public function show(Offer $offer)
     {
+        // $offer->getMedia();
+
+        // return $offer;
         // $offer->load(['author', 'categories', 'locations']);
         return view('offers.show', compact('offer'));
     }
@@ -65,9 +61,14 @@ class OfferController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Offer $offer)
     {
-        //
+        $this->authorize('update', $offer);
+
+        $locations = Location::orderBY('title')->get();
+        $categories = Category::orderBY('title')->get();
+
+        return view('offers.edit', compact('offer','locations', 'categories'));
     }
 
     /**

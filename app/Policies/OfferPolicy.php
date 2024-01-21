@@ -15,7 +15,12 @@ class OfferPolicy
 
     public function create(User $user)
     {
-        return true;
+        return $user->role === Role::USER;
+    }
+
+    public function update(User $user, Offer $offer)
+    {
+        return $user->role === Role::ADMIN ||($user->role === Role::USER && $user->id === $offer->author_id);
         return $user->role === 'user';
     }
 }
