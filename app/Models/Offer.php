@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -23,11 +24,23 @@ class Offer extends Model implements HasMedia
         'status',
     ];
 
+    public function author(): BelongsTo {
+        return $this->belongsTo(User::class);
+    }
+
     public function categories(): BelongsToMany {
         return $this->belongsToMany(Category::class);
     }
 
     public function locations(): BelongsToMany {
         return $this->belongsToMany(Location::class);
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        // return $this->getFirstMediaUrl();
+        return $this->hasMedia()
+        ? $this->getFirstMediaUrl()
+        : self::PLACEHOLDER_IMAGE_PATH;
     }
 }
