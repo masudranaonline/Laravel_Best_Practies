@@ -17,14 +17,14 @@
                     </x-nav-link>
                 </div>
 
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('offers/{offer}')" :active="request()->routeIs('dashboard')">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('offers.index')">
                         {{ __('Offer') }}
                     </x-nav-link>
-                </div> --}}
+                </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('offers.create')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('offers.create')">
                         {{ __('Offer Create') }}
                     </x-nav-link>
                 </div>

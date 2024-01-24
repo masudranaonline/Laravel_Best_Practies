@@ -12,6 +12,10 @@ class OfferPolicy
      * Create a new policy instance.
      */
 
+     public function viewAny(User $user)
+    {
+        return $user->role === Role::ADMIN;
+    }
 
     public function create(User $user)
     {
@@ -20,7 +24,7 @@ class OfferPolicy
 
     public function update(User $user, Offer $offer)
     {
-        return $user->role === Role::ADMIN ||($user->role === Role::USER && $user->id === $offer->author_id);
-        return $user->role === 'user';
+        return $user->role === Role::ADMIN || ($user->role === Role::USER && $user->id === $offer->author_id);
+       
     }
 }

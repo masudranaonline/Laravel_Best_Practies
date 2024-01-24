@@ -14,9 +14,19 @@ class OfferController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request, OfferService $offerService)
     {
-        
+        // dd($request->query());
+
+        $this->authorize('viewAny', Offer::class);
+
+        $categories = Category::orderBy('title')->get();
+        $locations = Location::orderBy('title')->get();
+
+        // $offers = Offer::with(['author', 'categories', 'locations'])->paginate(5);
+
+        $offers= $offerService->get($request->query());
+        return view('offers.index', compact('offers', 'categories', 'locations'));
     }
 
     /**
@@ -74,9 +84,18 @@ class OfferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreOfferRequest $request, Offer $offer, OfferService $offerService)
     {
-        //
+        // return $request;
+        $this->authorize('update', $offer);
+        $offerService->update(
+            $offer,
+            $request->validated(),
+            $request->hasFile('image') ? $request->file('image') : null
+        );
+        
+        return redirect()->back()->with(['success' => 'Offer Updated Successfully']);
+
     }
 
     /**

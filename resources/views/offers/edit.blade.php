@@ -8,13 +8,14 @@
               </div>
             
               <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm ">
-                  {{ Form::open([
+                  {{-- {{ Form::open([
                     'url' => route('offers.update', $offer->id),
                     'method' => 'POST',
                     'enctype' => 'multipart/form-data'
-                  ])}}
-                  {{-- <form action="{{ route('offers.store') }}" method="post" enctype="multipart/form-data"> --}}
+                  ])}} --}}
+                  <form action="{{ route('offers.update', $offer->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div>
                         <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Title<span class=" text-red-600 font-bold">*</span></label>
                         <div class="mt-2">
@@ -65,7 +66,7 @@
                     <div class="mt-2 flex flex-col image-preview">
                       <label for="email" class="leading-loose">Image</label>
                       <div class="flex items-center justify-center p-4">
-                        <img class=" object-cover rounded-3xl" src="{{ asset(\App\Models\Offer::PLACEHOLDER_IMAGE_PATH) }}" alt=""> 
+                        <img class=" object-cover rounded-3xl" src="{{ asset($offer->image_url) }}" alt=""> 
                       </div>
                       <input id="image" name="image" type="file" value="{{ old('image')}}" autocomplete="title" class="image-upload-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="">
                     </div>
@@ -82,10 +83,10 @@
                   </div>
             
                   <div class=" pt-4">
-                    <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+                    <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
                   </div>
-                {{ Form::close() }}
-                {{-- </form> --}}
+                {{-- {{ Form::close() }} --}}
+                </form>
               </div>
         </div>
     </div>
