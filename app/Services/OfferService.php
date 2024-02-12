@@ -79,4 +79,12 @@ class OfferService
         return $offers;
     }
 
+    public function destroy(Offer $offer)
+    {
+        $offer->update([
+            'deleted_by' => auth()->user()->id,
+            'delete_at' => now()
+        ]);
+    }
+
 }
