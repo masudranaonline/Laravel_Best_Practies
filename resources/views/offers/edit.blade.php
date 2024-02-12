@@ -81,10 +81,15 @@
                         <p class=" text-red-700 p-2">{{ $description }}</p>
                       @enderror
                   </div>
+
+                  
             
-                  <div class=" pt-4">
-                    <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
-                  </div>
+                  <div class="pt-4 flex items-center space-x-4">
+                    <a href="{{ auth()->user()->isAdmin() ? route('offers.index') : route('offers.my') }}" class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Cancel
+                    </a>
+                    <button class="bg-green-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Update</button>
+                </div>
                 {{-- {{ Form::close() }} --}}
                 </form>
               </div>

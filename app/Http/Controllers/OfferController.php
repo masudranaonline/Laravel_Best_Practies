@@ -16,14 +16,27 @@ class OfferController extends Controller
      */
     public function index(Request $request, OfferService $offerService)
     {
-        // dd($request->query());
 
         $this->authorize('viewAny', Offer::class);
 
         $categories = Category::orderBy('title')->get();
         $locations = Location::orderBy('title')->get();
 
-        // $offers = Offer::with(['author', 'categories', 'locations'])->paginate(5);
+        $offers= $offerService->get($request->query());
+        return view('offers.index', compact('offers', 'categories', 'locations'));
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function myOffers(Request $request, OfferService $offerService)
+    {
+
+        $this->authorize('viewMy', Offer::class);
+
+        $categories = Category::orderBy('title')->get();
+        $locations = Location::orderBy('title')->get();
 
         $offers= $offerService->get($request->query());
         return view('offers.index', compact('offers', 'categories', 'locations'));
